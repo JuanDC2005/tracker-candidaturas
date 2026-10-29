@@ -48,6 +48,18 @@ public class Main {
                         );
             }
         }
+        else if (comando.equals("-borrar")) {
+            if (args.length > 1) {
+                Integer idBorrar = Integer.valueOf(args[1]);
+                Boolean eliminado = lista.removeIf(c -> Objects.equals(c.getId(), idBorrar));
+                if (eliminado) {
+                    GestorArchivos.guardar(lista, ARCHIVO);
+                    System.out.println("Eliminada candidatura: " + idBorrar);
+                } else {
+                    System.out.println("Error: ID inexistente.");
+                }
+            }
+        }
     }
 
     private static String extraer(String[] args, String clave) {
