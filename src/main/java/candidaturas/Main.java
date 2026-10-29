@@ -36,6 +36,18 @@ public class Main {
                 }
             }
         }
+        else if (comando.equals("-ver")) {
+            if (args.length > 1) {
+                Integer idBuscado = Integer.valueOf(args[1]);
+                lista.stream()
+                        .filter(c -> Objects.equals(c.getId(), idBuscado))
+                        .findFirst()
+                        .ifPresentOrElse(
+                                c -> System.out.println(c.toString()),
+                                () -> System.out.println("ID no encontrado.")
+                        );
+            }
+        }
     }
 
     private static String extraer(String[] args, String clave) {
