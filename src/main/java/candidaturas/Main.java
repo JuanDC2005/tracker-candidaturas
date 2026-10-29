@@ -60,6 +60,14 @@ public class Main {
                 }
             }
         }
+        else if (comando.equals("-importar")) {
+            if (args.length > 1) {
+                List<Candidatura> importadas = GestorArchivos.cargar(args[1]);
+                lista.addAll(importadas);
+                GestorArchivos.guardar(lista, ARCHIVO);
+                System.out.println("Importadas candidaturas desde " + args[1]);
+            }
+        }
     }
 
     private static String extraer(String[] args, String clave) {

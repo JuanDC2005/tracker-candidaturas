@@ -1,0 +1,16 @@
+id;titulo;empresa;estado;fechaPostulacion;enlace;notas
+1;Desarrollador Java;Indra;pendiente;05/08/2026;https://indra.es/1;CV enviado
+2;Analista de Datos;NTT Data;entrevista;12/08/2026;https://nttdata.com/2;Prueba técnica pendiente
+3;Backend Engineer;Accenture;rechazado;20/08/2026;;Piden más experiencia
+4;Frontend Developer;Capgemini;aceptado;25/08/2026;https://capgemini.com/4;Oferta firmada
+5;Fullstack Developer;Globant;pendiente;02/09/2026;;En revisión
+6;QA Tester;Indra;entrevista;10/09/2026;;Entrevista con RRHH
+7;DevOps Engineer;NTT Data;rechazado;15/09/2026;https://nttdata.com/7;Descartado en primera fase
+8;Arquitecto Cloud;Accenture;aceptado;22/09/2026;;Incorporación en noviembre
+9;Junior Java Developer;Capgemini;pendiente;01/10/2026;https://capgemini.com/9;Esperando respuesta
+10;Scrum Master;Globant;entrevista;05/10/2026;;Segunda ronda el viernes
+11;Data Scientist;Indra;rechazado;10/10/2026;;Cerraron la vacante
+12;Product Owner;NTT Data;aceptado;15/10/2026;https://nttdata.com/12;Contrato enviado
+13;Soporte IT;Accenture;pendiente;20/10/2026;;Aplicado por LinkedIn
+14;Mobile Developer;Capgemini;entrevista;25/10/2026;;Prueba técnica entregada
+15;UX/UI Designer;Globant;rechazado;28/10/2026;https://globant.com/15;Perfil no encaja
