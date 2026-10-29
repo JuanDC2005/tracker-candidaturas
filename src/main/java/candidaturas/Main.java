@@ -24,6 +24,18 @@ public class Main {
                 System.out.println("Añadida candidatura con ID: " + nuevoId);
             }
         }
+        else if (comando.equals("-listar")) {
+            String filtroEst = extraer(args, "--estado");
+            String filtroEmp = extraer(args, "--empresa");
+
+            for (Candidatura c : lista) {
+                Boolean coincideEst = (filtroEst == null || c.getEstado().equalsIgnoreCase(filtroEst));
+                Boolean coincideEmp = (filtroEmp == null || c.getEmpresa().equalsIgnoreCase(filtroEmp));
+                if (coincideEst && coincideEmp) {
+                    System.out.println(c.toString());
+                }
+            }
+        }
     }
 
     private static String extraer(String[] args, String clave) {
