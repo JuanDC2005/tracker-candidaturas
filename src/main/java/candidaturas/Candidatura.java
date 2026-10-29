@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@jsonPropertyOrder({"id", "titulo", "empresa", "estado", "fechaPostulacion", "enlace", "notas"})
+@JsonPropertyOrder({"id", "titulo", "empresa", "estado", "fechaPostulacion", "enlace", "notas"})
 public class Candidatura {
     private Integer id;
     private String titulo;
