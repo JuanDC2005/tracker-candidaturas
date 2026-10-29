@@ -23,6 +23,11 @@
             <version>3.2.4</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>tools.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
+            <version>3.2.4</version>
+        </dependency>
 
     </dependencies>
 
