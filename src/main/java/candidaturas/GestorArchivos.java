@@ -9,7 +9,10 @@ import java.util.List;
 
 public class GestorArchivos {
     private static final CsvMapper mapper = CsvMapper.builder().build();
+    // Se indica el orden de las columnas y que la primera linea es la cabecera
     private static final CsvSchema schema = mapper.schemaFor(Candidatura.class)
+            .sortedBy("id", "titulo", "empresa", "estado", "fechaPostulacion", "enlace", "notas")
+            .withHeader()
             .withColumnSeparator(';')
             .withoutQuoteChar();
     public static List<Candidatura> cargar(String ruta) {
