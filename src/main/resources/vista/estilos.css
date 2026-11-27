@@ -102,3 +102,8 @@
 .texto-aceptado {
     -fx-text-fill: #16A34A;
 }
+
+.campo-error {
+    -fx-border-color: #DC2626;
+    -fx-border-radius: 3;
+}

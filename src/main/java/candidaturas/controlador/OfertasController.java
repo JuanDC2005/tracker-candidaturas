@@ -1,13 +1,18 @@
 package candidaturas.controlador;
 
+import candidaturas.dao.EmpresaDAO;
 import candidaturas.dao.ImportadorCSV;
 import candidaturas.dao.OfertaDAO;
+import candidaturas.modelo.Empresa;
 import candidaturas.modelo.Oferta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,7 +43,15 @@ public class OfertasController {
     @FXML private Label lblEntrevista;
     @FXML private Label lblAceptadas;
 
+    @FXML private TextField txtBuscar;
+    @FXML private ComboBox<Empresa> cbEmpresa;
+    @FXML private ComboBox<String> cbEstado;
+    @FXML private TextField txtSalarioMin;
+    @FXML private DatePicker dpDesde;
+    @FXML private DatePicker dpHasta;
+
     private final OfertaDAO ofertaDAO = new OfertaDAO();
+    private final EmpresaDAO empresaDAO = new EmpresaDAO();
     private final ObservableList<Oferta> ofertas = FXCollections.observableArrayList();
 
     @FXML
@@ -68,19 +81,77 @@ public class OfertasController {
         });
 
         tablaOfertas.setItems(ofertas);
+
+        prepararFiltros();
         cargarOfertas();
     }
 
     /**
-     * Vuelve a leer las ofertas de la base de datos y actualiza la tabla y los contadores.
+     * Rellena los desplegables de filtro y hace que la tabla se filtre
+     * cada vez que cambia alguno.
+     */
+    private void prepararFiltros() {
+        cbEstado.getItems().addAll("pendiente", "entrevista", "rechazado", "aceptado");
+        cargarEmpresasFiltro();
+
+        txtBuscar.textProperty().addListener((obs, antes, ahora) -> cargarOfertas());
+        txtSalarioMin.textProperty().addListener((obs, antes, ahora) -> cargarOfertas());
+        cbEmpresa.valueProperty().addListener((obs, antes, ahora) -> cargarOfertas());
+        cbEstado.valueProperty().addListener((obs, antes, ahora) -> cargarOfertas());
+        dpDesde.valueProperty().addListener((obs, antes, ahora) -> cargarOfertas());
+        dpHasta.valueProperty().addListener((obs, antes, ahora) -> cargarOfertas());
+    }
+
+    private void cargarEmpresasFiltro() {
+        try {
+            cbEmpresa.getItems().setAll(empresaDAO.listar());
+        } catch (SQLException e) {
+            mostrarError("No se pudieron cargar las empresas", e.getMessage());
+        }
+    }
+
+    /**
+     * Vuelve a leer las ofertas de la base de datos aplicando los filtros
+     * y actualiza la tabla y los contadores.
      */
     private void cargarOfertas() {
+        Integer idEmpresa = cbEmpresa.getValue() != null ? cbEmpresa.getValue().getId() : null;
+        Double salarioMin = leerSalarioMin();
+
         try {
-            ofertas.setAll(ofertaDAO.listar());
+            ofertas.setAll(ofertaDAO.filtrar(txtBuscar.getText(), idEmpresa, cbEstado.getValue(),
+                    salarioMin, dpDesde.getValue(), dpHasta.getValue()));
             actualizarContadores();
         } catch (SQLException e) {
             mostrarError("No se pudieron cargar las candidaturas", e.getMessage());
         }
+    }
+
+    /**
+     * Lee el salario minimo del filtro. Si no es un numero se marca en rojo y no se filtra por salario.
+     */
+    private Double leerSalarioMin() {
+        String texto = txtSalarioMin.getText().trim().replace(",", ".");
+        txtSalarioMin.getStyleClass().remove("campo-error");
+        if (texto.isEmpty()) {
+            return null;
+        }
+        try {
+            return Double.parseDouble(texto);
+        } catch (NumberFormatException e) {
+            txtSalarioMin.getStyleClass().add("campo-error");
+            return null;
+        }
+    }
+
+    @FXML
+    private void limpiarFiltros() {
+        txtBuscar.clear();
+        txtSalarioMin.clear();
+        cbEmpresa.setValue(null);
+        cbEstado.setValue(null);
+        dpDesde.setValue(null);
+        dpHasta.setValue(null);
     }
 
     private void actualizarContadores() {
@@ -107,6 +178,7 @@ public class OfertasController {
 
         try {
             int total = new ImportadorCSV().importar(archivo.getAbsolutePath());
+            cargarEmpresasFiltro();
             cargarOfertas();
             Alert info = new Alert(Alert.AlertType.INFORMATION, "Se han importado " + total + " candidaturas.");
             info.setHeaderText("Importacion terminada");
