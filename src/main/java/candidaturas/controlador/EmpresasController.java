@@ -29,6 +29,7 @@ public class EmpresasController {
     @FXML private TableColumn<Empresa, String> colSector;
     @FXML private TableColumn<Empresa, String> colWeb;
     @FXML private TableColumn<Empresa, LocalDate> colFecha;
+    @FXML private TableColumn<Empresa, Integer> colOfertas;
 
     @FXML private Label lblFormulario;
     @FXML private TextField txtNombre;
@@ -49,6 +50,8 @@ public class EmpresasController {
         colSector.setCellValueFactory(new PropertyValueFactory<>("sector"));
         colWeb.setCellValueFactory(new PropertyValueFactory<>("web"));
         colFecha.setCellValueFactory(new PropertyValueFactory<>("fechaRegistro"));
+        colOfertas.setCellValueFactory(new PropertyValueFactory<>("numOfertas"));
+        colOfertas.setStyle("-fx-alignment: CENTER;");
         tablaEmpresas.setItems(empresas);
 
         cbSector.getItems().addAll("Tecnología", "Consultoría", "Banca", "Telecomunicaciones", "Otro");

@@ -18,19 +18,25 @@ import java.util.List;
 public class EmpresaDAO {
 
     /**
-     * Devuelve todas las empresas ordenadas por nombre.
+     * Devuelve todas las empresas ordenadas por nombre, con el numero de
+     * candidaturas de cada una. Se usa LEFT JOIN para que tambien salgan
+     * las empresas que todavia no tienen ninguna oferta (con 0).
      *
      * @return lista de empresas
      * @throws SQLException si falla la consulta
      */
     public List<Empresa> listar() throws SQLException {
         List<Empresa> lista = new ArrayList<>();
-        String sql = "SELECT * FROM empresa ORDER BY nombre";
+        String sql = "SELECT e.*, COUNT(o.id) AS num_ofertas " +
+                "FROM empresa e LEFT JOIN oferta o ON o.id_empresa = e.id " +
+                "GROUP BY e.id ORDER BY e.nombre";
         try (Connection con = Conexion.getConexion();
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                lista.add(leerEmpresa(rs));
+                Empresa e = leerEmpresa(rs);
+                e.setNumOfertas(rs.getInt("num_ofertas"));
+                lista.add(e);
             }
         }
         return lista;
