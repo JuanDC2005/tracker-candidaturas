@@ -80,6 +80,9 @@ public class OfertasController {
             }
         });
 
+        // En la columna estado se pone un desplegable para cambiarlo desde la tabla
+        colEstado.setCellFactory(col -> new CeldaEstado());
+
         tablaOfertas.setItems(ofertas);
 
         prepararFiltros();
@@ -185,6 +188,58 @@ public class OfertasController {
             info.showAndWait();
         } catch (SQLException | IllegalArgumentException e) {
             mostrarError("Error al importar el CSV", e.getMessage());
+        }
+    }
+
+    /**
+     * Cambia el estado de una oferta en la base de datos y actualiza los contadores.
+     */
+    private void cambiarEstado(Oferta oferta, String nuevoEstado) {
+        if (nuevoEstado == null || nuevoEstado.equals(oferta.getEstado())) {
+            return;
+        }
+        try {
+            ofertaDAO.cambiarEstado(oferta.getId(), nuevoEstado);
+            oferta.setEstado(nuevoEstado);
+            actualizarContadores();
+        } catch (SQLException e) {
+            mostrarError("No se pudo cambiar el estado", e.getMessage());
+        }
+    }
+
+    /**
+     * Celda de la columna estado: un ComboBox con un color segun el estado.
+     */
+    private class CeldaEstado extends TableCell<Oferta, String> {
+        private final ComboBox<String> combo = new ComboBox<>();
+
+        CeldaEstado() {
+            combo.getItems().addAll("pendiente", "entrevista", "rechazado", "aceptado");
+            combo.setMaxWidth(Double.MAX_VALUE);
+            combo.setOnAction(e -> {
+                Oferta oferta = getTableRow().getItem();
+                if (oferta != null) {
+                    cambiarEstado(oferta, combo.getValue());
+                    ponerColor(combo.getValue());
+                }
+            });
+        }
+
+        @Override
+        protected void updateItem(String estado, boolean vacia) {
+            super.updateItem(estado, vacia);
+            if (vacia || estado == null) {
+                setGraphic(null);
+            } else {
+                combo.setValue(estado);
+                ponerColor(estado);
+                setGraphic(combo);
+            }
+        }
+
+        private void ponerColor(String estado) {
+            combo.getStyleClass().removeAll("estado-pendiente", "estado-entrevista", "estado-rechazado", "estado-aceptado");
+            combo.getStyleClass().add("estado-" + estado);
         }
     }
 

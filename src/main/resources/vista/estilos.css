@@ -103,6 +103,28 @@
     -fx-text-fill: #16A34A;
 }
 
+/* Colores de los estados en la tabla */
+.estado-pendiente {
+    -fx-background-color: #FEF3C7;
+}
+
+.estado-entrevista {
+    -fx-background-color: #DBEAFE;
+}
+
+.estado-rechazado {
+    -fx-background-color: #FEE2E2;
+}
+
+.estado-aceptado {
+    -fx-background-color: #DCFCE7;
+}
+
+.estado-pendiente .list-cell, .estado-entrevista .list-cell,
+.estado-rechazado .list-cell, .estado-aceptado .list-cell {
+    -fx-text-fill: #1E293B;
+}
+
 .campo-error {
     -fx-border-color: #DC2626;
     -fx-border-radius: 3;
