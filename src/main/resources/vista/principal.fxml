@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="candidaturas.controlador.PrincipalController">
+    <left>
+        <VBox fx:id="menuLateral" spacing="6.0" prefWidth="200.0" styleClass="menu-lateral">
+            <padding>
+                <Insets top="20.0" right="12.0" bottom="20.0" left="12.0"/>
+            </padding>
+            <Label text="Tracker" styleClass="logo"/>
+            <Label text="de Candidaturas" styleClass="logo-sub">
+                <VBox.margin>
+                    <Insets bottom="20.0"/>
+                </VBox.margin>
+            </Label>
+            <Button fx:id="btnCandidaturas" text="Candidaturas" maxWidth="Infinity"
+                    onAction="#mostrarCandidaturas" styleClass="boton-menu"/>
+        </VBox>
+    </left>
+    <center>
+        <StackPane fx:id="contenido" styleClass="contenido">
+            <Label text="Bienvenido al Tracker de Candidaturas" styleClass="titulo"/>
+        </StackPane>
+    </center>
+</BorderPane>

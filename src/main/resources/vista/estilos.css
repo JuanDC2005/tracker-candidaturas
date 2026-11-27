@@ -1,0 +1,76 @@
+/* Estilos de la aplicacion segun el Manual de Estilo de la v1.0 */
+/* Principal #2563EB | Texto #1E293B | Fondo #F8FAFC | Aceptado #16A34A | Rechazado #DC2626 */
+
+.root {
+    -fx-font-family: "Inter", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1E293B;
+}
+
+.contenido {
+    -fx-background-color: #F8FAFC;
+}
+
+/* Menu lateral */
+.menu-lateral {
+    -fx-background-color: #1E293B;
+}
+
+.logo {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.logo-sub {
+    -fx-text-fill: #94A3B8;
+}
+
+.boton-menu {
+    -fx-background-color: transparent;
+    -fx-text-fill: #CBD5E1;
+    -fx-alignment: center-left;
+    -fx-padding: 9 12 9 12;
+    -fx-cursor: hand;
+}
+
+.boton-menu:hover {
+    -fx-background-color: #334155;
+    -fx-text-fill: white;
+}
+
+.boton-menu-activo {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: white;
+}
+
+/* Textos */
+.titulo {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.subtitulo {
+    -fx-font-size: 15px;
+    -fx-text-fill: #475569;
+}
+
+/* Botones */
+.boton-principal {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.boton-principal:hover {
+    -fx-background-color: #1D4ED8;
+}
+
+.boton-peligro {
+    -fx-background-color: #DC2626;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
