@@ -88,6 +88,7 @@
             </BorderPane.margin>
             <Button fx:id="btnBorrar" text="Borrar" onAction="#borrarOferta" styleClass="boton-peligro" disable="true"/>
             <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnDetalle" text="Ver detalle" onAction="#verDetalle" disable="true"/>
             <Button fx:id="btnEditar" text="Editar" onAction="#editarOferta" disable="true"/>
             <Button text="+ Nueva candidatura" onAction="#nuevaOferta" styleClass="boton-principal"/>
         </HBox>

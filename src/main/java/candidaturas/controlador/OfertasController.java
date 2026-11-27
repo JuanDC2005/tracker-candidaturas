@@ -52,6 +52,7 @@ public class OfertasController {
     @FXML private DatePicker dpDesde;
     @FXML private DatePicker dpHasta;
 
+    @FXML private Button btnDetalle;
     @FXML private Button btnEditar;
     @FXML private Button btnBorrar;
 
@@ -93,6 +94,14 @@ public class OfertasController {
         // Los botones Editar y Borrar solo se activan si hay una fila seleccionada
         btnEditar.disableProperty().bind(tablaOfertas.getSelectionModel().selectedItemProperty().isNull());
         btnBorrar.disableProperty().bind(tablaOfertas.getSelectionModel().selectedItemProperty().isNull());
+        btnDetalle.disableProperty().bind(tablaOfertas.getSelectionModel().selectedItemProperty().isNull());
+
+        // Doble clic en una fila para ver el detalle
+        tablaOfertas.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                verDetalle();
+            }
+        });
 
         prepararFiltros();
         cargarOfertas();
@@ -204,6 +213,14 @@ public class OfertasController {
     private void nuevaOferta() {
         if (FormularioOfertaController.abrir(tablaOfertas.getScene().getWindow(), null)) {
             cargarOfertas();
+        }
+    }
+
+    @FXML
+    private void verDetalle() {
+        Oferta seleccionada = tablaOfertas.getSelectionModel().getSelectedItem();
+        if (seleccionada != null) {
+            DetalleOfertaController.abrir(tablaOfertas.getScene().getWindow(), seleccionada);
         }
     }
 
