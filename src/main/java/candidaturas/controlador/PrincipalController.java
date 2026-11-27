@@ -26,8 +26,16 @@ public class PrincipalController {
     private Button btnCandidaturas;
 
     @FXML
+    private Button btnEmpresas;
+
+    @FXML
     private void mostrarCandidaturas() {
         mostrarVista("/vista/ofertas.fxml", btnCandidaturas);
+    }
+
+    @FXML
+    private void mostrarEmpresas() {
+        mostrarVista("/vista/empresas.fxml", btnEmpresas);
     }
 
     /**

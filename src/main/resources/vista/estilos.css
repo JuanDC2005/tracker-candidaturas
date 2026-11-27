@@ -74,3 +74,15 @@
     -fx-background-radius: 6;
     -fx-cursor: hand;
 }
+
+/* Tarjetas y formularios */
+.tarjeta {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8;
+}
+
+.texto-error {
+    -fx-text-fill: #DC2626;
+}

@@ -22,6 +22,8 @@
             </Label>
             <Button fx:id="btnCandidaturas" text="Candidaturas" maxWidth="Infinity"
                     onAction="#mostrarCandidaturas" styleClass="boton-menu"/>
+            <Button fx:id="btnEmpresas" text="Empresas" maxWidth="Infinity"
+                    onAction="#mostrarEmpresas" styleClass="boton-menu"/>
         </VBox>
     </left>
     <center>
