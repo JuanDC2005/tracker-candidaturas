@@ -28,6 +28,14 @@ public class PrincipalController {
     @FXML
     private Button btnEmpresas;
 
+    /**
+     * Al abrir la aplicacion se muestra directamente la pantalla de candidaturas.
+     */
+    @FXML
+    private void initialize() {
+        mostrarCandidaturas();
+    }
+
     @FXML
     private void mostrarCandidaturas() {
         mostrarVista("/vista/ofertas.fxml", btnCandidaturas);

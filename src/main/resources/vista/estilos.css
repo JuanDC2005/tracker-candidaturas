@@ -86,3 +86,19 @@
 .texto-error {
     -fx-text-fill: #DC2626;
 }
+
+/* Tarjetas de resumen de la pantalla de candidaturas */
+.kpi {
+    -fx-padding: 12 16 12 16;
+    -fx-spacing: 4;
+}
+
+.kpi-numero {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2563EB;
+}
+
+.texto-aceptado {
+    -fx-text-fill: #16A34A;
+}

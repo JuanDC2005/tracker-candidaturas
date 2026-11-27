@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="candidaturas.controlador.OfertasController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+    <top>
+        <VBox spacing="15.0">
+            <BorderPane.margin>
+                <Insets bottom="15.0"/>
+            </BorderPane.margin>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <VBox spacing="4.0">
+                    <Label text="Candidaturas" styleClass="titulo"/>
+                    <Label text="Seguimiento de todas tus ofertas" styleClass="subtitulo"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Importar CSV" onAction="#importarCsv"/>
+            </HBox>
+
+            <!-- Tarjetas de resumen (KPIs) -->
+            <HBox spacing="12.0">
+                <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                    <Label text="Total"/>
+                    <Label fx:id="lblTotal" text="0" styleClass="kpi-numero"/>
+                </VBox>
+                <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                    <Label text="Pendientes"/>
+                    <Label fx:id="lblPendientes" text="0" styleClass="kpi-numero"/>
+                </VBox>
+                <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                    <Label text="En entrevista"/>
+                    <Label fx:id="lblEntrevista" text="0" styleClass="kpi-numero"/>
+                </VBox>
+                <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                    <Label text="Aceptadas"/>
+                    <Label fx:id="lblAceptadas" text="0" styleClass="kpi-numero, texto-aceptado"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <TableView fx:id="tablaOfertas">
+            <placeholder>
+                <Label text="No hay candidaturas. Pulsa 'Importar CSV' para cargar datos."/>
+            </placeholder>
+            <columns>
+                <TableColumn fx:id="colTitulo" text="Puesto" prefWidth="220.0"/>
+                <TableColumn fx:id="colEmpresa" text="Empresa" prefWidth="150.0"/>
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="110.0"/>
+                <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100.0"/>
+                <TableColumn fx:id="colSalario" text="Salario" prefWidth="90.0"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </center>
+</BorderPane>
