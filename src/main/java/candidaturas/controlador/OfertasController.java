@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -50,6 +52,9 @@ public class OfertasController {
     @FXML private DatePicker dpDesde;
     @FXML private DatePicker dpHasta;
 
+    @FXML private Button btnEditar;
+    @FXML private Button btnBorrar;
+
     private final OfertaDAO ofertaDAO = new OfertaDAO();
     private final EmpresaDAO empresaDAO = new EmpresaDAO();
     private final ObservableList<Oferta> ofertas = FXCollections.observableArrayList();
@@ -84,6 +89,10 @@ public class OfertasController {
         colEstado.setCellFactory(col -> new CeldaEstado());
 
         tablaOfertas.setItems(ofertas);
+
+        // Los botones Editar y Borrar solo se activan si hay una fila seleccionada
+        btnEditar.disableProperty().bind(tablaOfertas.getSelectionModel().selectedItemProperty().isNull());
+        btnBorrar.disableProperty().bind(tablaOfertas.getSelectionModel().selectedItemProperty().isNull());
 
         prepararFiltros();
         cargarOfertas();
@@ -188,6 +197,41 @@ public class OfertasController {
             info.showAndWait();
         } catch (SQLException | IllegalArgumentException e) {
             mostrarError("Error al importar el CSV", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void nuevaOferta() {
+        if (FormularioOfertaController.abrir(tablaOfertas.getScene().getWindow(), null)) {
+            cargarOfertas();
+        }
+    }
+
+    @FXML
+    private void editarOferta() {
+        Oferta seleccionada = tablaOfertas.getSelectionModel().getSelectedItem();
+        if (seleccionada != null && FormularioOfertaController.abrir(tablaOfertas.getScene().getWindow(), seleccionada)) {
+            cargarOfertas();
+        }
+    }
+
+    @FXML
+    private void borrarOferta() {
+        Oferta seleccionada = tablaOfertas.getSelectionModel().getSelectedItem();
+        if (seleccionada == null) {
+            return;
+        }
+        Alert confirmar = new Alert(Alert.AlertType.CONFIRMATION,
+                "Se borrará \"" + seleccionada.getTitulo() + "\" y todas sus entrevistas.");
+        confirmar.setHeaderText("¿Borrar candidatura?");
+        if (confirmar.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) {
+            return;
+        }
+        try {
+            ofertaDAO.borrar(seleccionada.getId());
+            cargarOfertas();
+        } catch (SQLException e) {
+            mostrarError("No se pudo borrar la candidatura", e.getMessage());
         }
     }
 

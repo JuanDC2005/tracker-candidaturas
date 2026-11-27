@@ -81,4 +81,15 @@
             </columnResizePolicy>
         </TableView>
     </center>
+    <bottom>
+        <HBox spacing="8.0" alignment="CENTER_RIGHT">
+            <BorderPane.margin>
+                <Insets top="12.0"/>
+            </BorderPane.margin>
+            <Button fx:id="btnBorrar" text="Borrar" onAction="#borrarOferta" styleClass="boton-peligro" disable="true"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnEditar" text="Editar" onAction="#editarOferta" disable="true"/>
+            <Button text="+ Nueva candidatura" onAction="#nuevaOferta" styleClass="boton-principal"/>
+        </HBox>
+    </bottom>
 </BorderPane>
